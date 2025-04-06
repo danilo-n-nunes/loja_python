@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Produtos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="container mt-5">
+    <h1>Lista de Produtos</h1>
+    {% if mensagem %}
+        <div class="alert alert-success">
+            {{ mensagem }}
+        </div>
+    {% endif %}
+    {% if erro %}
+        <div class="alert alert-danger">
+            {{ erro }}
+        </div>
+    {% endif %}
+    {% if mensagem %}
+        <ul>
+            {% for message in mensages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    <a href="{% url 'adicionar_produto' %}" class="btn btn-success">+ Adicionar novo produto</a>
+    
+    <ul class="list-group">
+        {% for produto in produtos %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ produto.nome }} - R$ {{ produto.preco }}
+                <span>
+                    [<a href="{% url 'editar_produto' produto.pk %}">Editar</a>]
+                    [<a href="{% url 'excluir_produto' produto.pk %}">Excluir</a>]
+                </span>
+            </li>
+        {% empty %}
+            <li class="list-group-item">Nenhum produto cadastrado.</li>
+        {% endfor %}
+    </ul>
+    <!-- <a href="{% url 'adicionar_produto' %}">+ Adicionar novo produto</a> -->
+</body>
+</html>
